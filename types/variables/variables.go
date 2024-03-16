@@ -80,6 +80,8 @@ const (
 	RequestMethod = variables.RequestMethod
 	// RequestProtocol is the protocol used in the request
 	RequestProtocol = variables.RequestProtocol
+	// RequestScheme is the http or https version used in the request
+	RequestScheme = variables.RequestScheme
 	// RequestURI holds the full request URL including the query string data without
 	// the domain name
 	RequestURI = variables.RequestURI
@@ -155,6 +157,11 @@ const (
 	ResponseHeaders = variables.ResponseHeaders
 	// Geo contains the location information of the client
 	Geo = variables.Geo
+	// CountryCode is the country code of the location information of the client
+	CountryCode = variables.CountryCode
+	// CountryName is the country name of the location information of the client
+	CountryName = variables.CountryName
+	// RequestCookiesNames contains the names of the request cookies
 	// RequestCookiesNames contains the names of the request cookies
 	RequestCookiesNames = variables.RequestCookiesNames
 	// FilesTmpNames contains the names of the uploaded temporal files

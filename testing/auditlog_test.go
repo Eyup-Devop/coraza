@@ -252,7 +252,7 @@ func TestAuditLogRequestMethodURIProtocol(t *testing.T) {
 	method := "POST"
 	proto := "HTTP/1.1"
 
-	tx.ProcessURI(uri, method, proto)
+	tx.ProcessURI(uri, method, proto, "HTTP")
 	// now we read file
 	if _, err := file.Seek(0, 0); err != nil {
 		t.Error(err)

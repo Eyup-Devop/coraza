@@ -6,12 +6,14 @@ package coraza
 import (
 	"context"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/corazawaf/coraza/v3/experimental"
 	"github.com/corazawaf/coraza/v3/internal/corazawaf"
 	"github.com/corazawaf/coraza/v3/internal/seclang"
 	"github.com/corazawaf/coraza/v3/types"
+	"github.com/oschwald/geoip2-golang"
 )
 
 // WAF instance is used to store configurations and rules
@@ -32,6 +34,34 @@ func NewWAF(config WAFConfig) (WAF, error) {
 	c := config.(*wafConfig)
 
 	waf := corazawaf.NewWAF()
+
+	if c.geoip2file != "" {
+		var (
+			db  *geoip2.Reader
+			err error
+		)
+		if _, err = os.Stat(c.geoip2file); err == nil {
+			db, err = geoip2.Open(c.geoip2file)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			return nil, fmt.Errorf("geoip2 file not found:%s", c.geoip2file)
+		}
+		waf.GeoLookupDB = db
+	}
+
+	if c.broker != nil {
+		waf.AuditLogWriterConfig.Broker = c.broker
+	}
+
+	if c.topic != "" {
+		waf.AuditLogWriterConfig.Topic = c.topic
+	}
+
+	if c.domainName != "" {
+		waf.AuditLogWriterConfig.DomainName = c.domainName
+	}
 
 	if c.debugLogger != nil {
 		waf.Logger = c.debugLogger

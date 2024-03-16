@@ -80,6 +80,8 @@ const (
 	RequestMethod
 	// RequestProtocol is the protocol used in the request
 	RequestProtocol
+	// RequestScheme is the Http or Https used in the request
+	RequestScheme
 	// RequestURI holds the full request URL including the query string data without
 	// the domain name
 	RequestURI
@@ -156,6 +158,10 @@ const (
 	ResBodyProcessor
 	// Geo contains the location information of the client
 	Geo
+	// CountryCode contains the country code information of the client
+	CountryCode
+	// CountryName contains the country code information of the client
+	CountryName
 	// RequestCookiesNames contains the names of the request cookies
 	RequestCookiesNames
 	// FilesTmpNames contains the names of the uploaded temporal files
